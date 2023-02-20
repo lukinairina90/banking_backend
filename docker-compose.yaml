@@ -1,0 +1,55 @@
+services:
+  db:
+    container_name: banking-db
+    image: postgres
+    volumes:
+      - type: bind
+        source: docker/data
+        target: /var/lib/postgresql/data
+        read_only: false
+      - type: bind
+        source: docker/postgres/init-db.sql
+        target: /docker-entrypoint-initdb.d/init-db.sql
+        read_only: true
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: qwerty123
+
+  migrations:
+    container_name: banking-app-migrations
+    image: migrate/migrate
+    volumes:
+      - ./docker/migrations:/migrations
+    command:
+      - -path=/migrations/
+      - -database=postgres://postgres:qwerty123@db:5432/banking?sslmode=disable
+      - up
+    restart: on-failure
+    depends_on:
+      - db
+
+  banking-app:
+    container_name: banking-app
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      PORT: 8080
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASS: qwerty123
+      DB_NAME: banking
+      DB_SSL_MODE: false
+      TOKEN_TTL: 24h
+      TOKEN_SECRET: token-secret
+      USER_PASSWORD_SALT: salt
+      RBAC_MODEL_FILE_PATH: /rbac/model.conf
+      RBAC_POLICY_FILE_PATH: /rbac/policy.csv
+    restart: on-failure
+    depends_on:
+      - db
+      - migrations

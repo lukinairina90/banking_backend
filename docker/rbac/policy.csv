@@ -1,0 +1,19 @@
+p, anonymous,                   /auth/sign-up,                  POST
+p, anonymous,                   /auth/sign-in,                  POST
+p, anonymous,                   /auth/refresh,                  GET
+p, admin,                       /account/{id}/unblock,          POST
+p, admin,                       /account/{id}/deposit,          POST
+p, user,                        /account/,                      (POST)|(GET)
+p, user,                        /account/{id},                  (GET)|(DELETE)
+p, user,                        /account/{id}/transfer,         POST
+p, user,                        /account/{id}/block,            POST
+p, user,                        /account/{id}/transaction/,     GET
+p, user,                        /account/{id}/card/,            (GET)|(POST)
+p, user,                        /account/{id}/card/{card_id},   GET
+p, user,                        /card/,                         GET
+p, user,                        /event/,                        GET
+p, admin,                       /user/{id}/block,               POST
+p, admin,                       /user/{id}/unblock,             POST
+
+g, user, anonymous
+g, admin, user
