@@ -12,7 +12,7 @@ make run
 #### Execute the command make run and application will be started using docker-compose. You have to wait some time while all containers will be started and ready. (approximately 15 seconds)
 #### You can see other commands from the Makefile.
 #### Webserver will be available at `http://localhost:8080`
-#### Documentation and endpoints description you can find by the address `https://documenter.getpostman.com/view/19452086/2s93CGTH3e`
+#### Documentation and endpoints description you can find by the address [https://documenter.getpostman.com/view/19452086/2s93CGTH3e](https://documenter.getpostman.com/view/19452086/2s93CGTH3e) 
 
 ## Application description:
 The application has login/registration function and authorization based on a JWT token (see the Postman documentation on how to use it).
