@@ -55,3 +55,7 @@ accounts:
 user lock/unlock;
 blocking/unblocking one of the user's accounts.
 ````
+
+
+### Database schema visualization: 
+![database_schema_visualization.png](database_schema_visualization.png)
